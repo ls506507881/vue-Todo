@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ls506507881/vue-Todo/issues"
   },
-  "homepage": "https://github.com/ls506507881/vue-Todo#readme"
+  "homepage": "https://github.com/ls506507881/vue-Todo#readme",
+  "dependencies": {
+    "leancloud-storage": "^3.5.0"
+  }
 }
