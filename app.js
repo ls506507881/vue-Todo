@@ -14,6 +14,7 @@ var app = new Vue({
     data: {
         newTodo: '',
         todoList: [],
+        currentUser:'',
         actionType: 'signUp',
         formData: {
           username: '',
@@ -50,10 +51,32 @@ var app = new Vue({
             user.setUsername(this.formData.username);
             // 设置密码
             user.setPassword(this.formData.password);
-            user.signUp().then(function (loginedUser) {
-              console.log(loginedUser);
-            }, function (error) {
+            user.signUp().then((loginedUser) => {
+              this.currentUser = this.getCurrentUser() 
+            }, (error) => {
+              alert('注册失败') 
             });
+          },
+          login: function () {
+            AV.User.logIn(this.formData.username, this.formData.password).then((loginedUser) => {
+              this.currentUser = this.getCurrentUser()
+            }, function (error) {
+              alert('登录失败')
+            })
+          },
+          getCurrentUser: function () { 
+            let {id, createdAt, attributes: {username}} = AV.User.current()
+            // ES 6 新特性列表：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+            return {id, username, createdAt} // 看文档：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Object_initializer#ECMAScript_6%E6%96%B0%E6%A0%87%E8%AE%B0
+          },
+          logout:function(){
+            AV.User.logOut();
+            // 现在的 currentUser 是 null 了
+            var currentUser = AV.User.current();
+            window.location.reload()
+            // AV.User.logOut()
+            // this.currentUser = null
+            // window.location.reload()
           }
     }
 })
