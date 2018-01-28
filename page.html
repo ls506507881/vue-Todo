@@ -3,9 +3,180 @@
 
 <head>
     <meta charset=utf-8>
+    <link rel="stylesheet" href="./css/reset.css">
     <style>
     [v-cloak] {
         display: none;
+    }
+    body{
+        /* background: url(./img/bg.png) repeat; */
+        background: #FAFAF8;
+    }
+    #signInAndSignUp{
+        width: 100%;
+        height: 100vh;
+        margin: 0 auto;
+        position: relative;
+    }
+    #signInAndSignUp .boxWrap{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        z-index: 1;
+    }
+    #signInAndSignUp .boxWrap .userInfo{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background: #fff;
+        width: 420px;
+        height: 380px;
+        box-shadow: 2px 5px 40px -2px rgba(0,0,0,0.24);
+        padding: 30px 40px;
+        z-index: 1;
+    }
+    #signInAndSignUp .boxWrap .userInfo > h2{
+        font-size: 24px;
+        color: #3F9EFF;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font-weight: 600px;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    .formRow input{
+        border: none;
+        outline:none;
+        border-bottom: 1px solid #B9B9B9;
+        line-height: 36px;
+        width: 100%;
+        margin-top: 15px;
+        font-size: 16px;
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .formRow input::-webkit-input-placeholder{
+        font-size: 16px;
+    }
+    .formActions{
+        margin-top: 20px;
+        text-align: right;
+    }
+    .formActions input[type=submit]{
+        padding: 10px 40px;
+        font-size: 14px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .formActions .signUpButton{
+        border: 1px solid #efefef;
+        background: #fff;
+    }
+    .formActions .logInButton{
+        border: none;
+        background: #3F9EFF;
+        color: #fff;
+
+    }
+    #signInAndSignUp .boxWrap .userInfo.signUp{
+        position: absolute;
+        top: 0;
+        left: -120px;
+        /* transition: ease-out .5s; */
+        /* transition: mymove ease-out .5s; */
+        animation:signUpmove .8s ease;
+    }
+    #signInAndSignUp .boxWrap .userInfo.signUp{
+
+    }
+    #signInAndSignUp .boxWrap .userInfo.login{
+        position: absolute;
+        top: 0;
+        left: 120px;
+        animation:loginmove .8s ease;
+        /* transition: mymove ease-out .5s; */
+        /* transition: all 10s ease; */
+    }
+    @keyframes loginmove{
+        0%   {left: 0px;}
+        40%  {left: 140px;}
+        80%  {left: 115px;}
+        95%  {left: 122px;}
+        100% {left: 120px;}
+    }
+    @keyframes signUpmove{
+        0%   {left: 0px;}
+        40%  {left: -140px;}
+        80%  {left: -115px;}
+        95%  {left: -122px;}
+        100% {left: -120px;}
+    }
+    #signInAndSignUp .signInAndSignUpInfo{
+        width: 750px;
+        height: 320px;
+        background: rgba(50,57,62,.95);
+        box-shadow: 2px 5px 40px -2px rgba(0,0,0,0.24);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+    }
+    #signInAndSignUp .signInAndSignUpInfo .loginInfo{
+        width: 300px;
+        padding: 15px 50px;
+    }
+    #signInAndSignUp .signInAndSignUpInfo .loginInfo > h3{
+        font-size: 24px;
+        margin-top: 50px;
+    }
+    #signInAndSignUp .signInAndSignUpInfo .loginInfo > p{
+        margin-top: 8px;
+        line-height: 1.2em;
+    }
+    #signInAndSignUp .signInAndSignUpInfo .loginInfo > a{
+        padding: 0 40px;
+        text-align: center;
+        border: .5px solid #fff;
+        border-radius: 3px;
+        line-height: 30px;
+        margin-top: 30px;
+        display: inline-block;
+        cursor: pointer;
+    }
+    #signInAndSignUp .bg{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:url(./img/logInBg.jpg);
+        background-size: cover;
+        z-index: -1;
+        filter: blur(2px); 
+    }
+    section#todo{
+        background: #F4F5F5;
+    }
+    section#todo > .topbar{
+        width: 100%;
+        height: 60px;
+        background: #fff;
+        box-shadow: 2px 5px 40px -2px rgba(0,0,0,0.24);
+
+    }
+    section#todo > .todos{
+    }
+    section#todo > .todos > li{
+        float: left;
+        margin-left: 15px;
+        width: 150px;
+        background: #fff;
+        box-shadow: 2px 5px 26px -2px rgba(0,0,0,0.24);
+        border-radius: 4px;
+        padding: 15px;
     }
     </style>
 </head>
@@ -13,53 +184,71 @@
 <body>
     <div id="app" v-cloak>
         <section id="signInAndSignUp" v-if="!currentUser">
-            <div>
-                <label><input type="radio" name="type" v-model="actionType" value="signUp">注册</label>
-                <label><input type="radio" name="type" v-model="actionType" value="login">登入</label>
+            <div class="boxWrap">
+                <transition>
+                <div class="userInfo signUp" v-if="actionType==='signUp'">
+                    <h2>SIGN UP</h2>
+                    <form v-on:submit.prevent="signUp">
+                        <div class="formRow">
+                            <input type="text" v-model="formData.username" placeholder="Full name" >
+                        </div>
+                        <div class="formRow">
+                            <input type="password" v-model="formData.password" placeholder="Password">
+                        </div>
+                        <div class="formActions">
+                            <input class="signUpButton" type="submit" value="注册">
+                        </div>
+                    </form>
+                </div>
+                <div class="userInfo login" v-if="actionType=='login'">
+                    <h2>LOG IN</h2>
+                    <form v-on:submit.prevent="login">
+                        <div class="formRow">
+                            <input type="text" v-model="formData.username" placeholder="Username">
+                        </div>
+                        <div class="formRow">
+                            <input type="password" v-model="formData.password" placeholder="Password">
+                        </div>
+                        <div class="formActions">
+                            <input class="logInButton" type="submit" value="登入">
+                        </div>
+                    </form>
+                </div>
+                </transition>
             </div>
-            <div class="signUp" v-if="actionType==='signUp'">
-                <form v-on:submit.prevent="signUp">
-                    <div class="formRow">
-                        用户名<input type="text" v-model="formData.username">
-                    </div>
-                    <div class="formRow">
-                        密码<input type="password" v-model="formData.password">
-                    </div>
-                    <div class="formActions">
-                        <input type="submit" value="注册">
-                    </div>
-                </form>
+            <div class="signInAndSignUpInfo">
+                <div class="loginInfo">
+                    <h3>Don't Have an account?</h3>
+                    <p>Personalize Switter based on where you're seen Switter content on the web.Learn more.</p>
+                    <a v-on:click="actionType = 'signUp'" value="signUp">SIGN UP</a>
+                </div>
+                <div class="loginInfo">
+                    <h3>Have an account?</h3>
+                    <p>Personalize Switter based on where you're seen Switter content on the web.Learn more.</p>
+                    <a v-on:click="actionType = 'login'" value="login">LOG IN</a>
+                </div>
             </div>
-            <div class="login" v-if="actionType=='login'">
-                <form v-on:submit.prevent="login">
-                    <div class="formRow">
-                        用户名<input type="text" v-model="formData.username">
-                    </div>
-                    <div class="formRow">
-                        密码<input type="password" v-model="formData.password">
-                    </div>
-                    <div class="formActions">
-                        <input type="submit" value="登入">
-                    </div>
-                </form>
-            </div>
+            <div class="bg"></div>
         </section>
 
         <section id="todo" v-if="currentUser">
-            <p>欢迎您，用户 - {{currentUser.username}}</p>
-            <p><button @click="logout">登出</button></p>
-            <div class="newTask">
-                <input type="text" v-model="newTodo" @keypress.enter="addTodo">
+            <div class="topbar">
+                <p>欢迎您，用户 - {{currentUser.username}}</p>
+                <p><button @click="logout">登出</button></p>
             </div>
-            <ol class="todos">
-                <li v-for="todo in todoList">
-                    <input type="checkbox" v-model="todo.done"> {{ todo.title }} - {{ todo.createdAt}}
-                    <span v-if="todo.done">已完成</span>
-                    <span v-else>未完成</span>
-
-                    <button @click="removeTodo(todo)">X</button>
-                </li>
-            </ol>
+            <div class="todoContent">
+                <div class="newTask">
+                    <input type="text" v-model="newTodo" @keypress.enter="addTodo">
+                </div>
+                <ol class="todos">
+                    <li v-for="todo in todoList">
+                        <input type="checkbox" v-model="todo.done"> {{ todo.title }} - {{ todo.createdAt}}
+                        <span v-if="todo.done">已完成</span>
+                        <span v-else>未完成</span>
+                        <button @click="removeTodo(todo)">X</button>
+                    </li>
+                </ol>
+            </div>
         </section>
     </div>
     <script src="bundle.js"></script>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .component-fade-enter-active, .component-fade-leave-active {
+        transition: opacity .3s ease;
+        }
+        .component-fade-enter, .component-fade-leave-to
+        /* .component-fade-leave-active for below version 2.1.8 */ {
+        opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+            <div id="ransition-components-demo">
+                    <transition name="component-fade" mode="out-in">
+                            <component v-bind:is="view"></component>
+                          </transition>
+            </div>
+    </div>
+        <script src="bundle.js"></script>
+</body>
+</html>

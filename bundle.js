@@ -310,7 +310,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
         formData: {
           username: '',
           password: ''
-        },
+        }
     },
     created: function(){
         this.currentUser = this.getCurrentUser();  //添加执行
@@ -334,8 +334,11 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
         updateTodos: function(){
           // 想要知道如何更新对象，先看文档 https://leancloud.cn/docs/leanstorage_guide-js.html#更新对象
           let dataString = JSON.stringify(this.todoList) // JSON 在序列化这个有 id 的数组的时候，会得出怎样的结果？
+          // 第一个参数是 className，第二个参数是 objectId
           let avTodos = __WEBPACK_IMPORTED_MODULE_1_leancloud_storage___default.a.Object.createWithoutData('AllTodos', this.todoList.id)
+          //修改属性
           avTodos.set('content', dataString)
+          //保存到云端
           avTodos.save().then(()=>{
             console.log('更新成功')
           })
@@ -349,9 +352,8 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
           acl.setReadAccess(__WEBPACK_IMPORTED_MODULE_1_leancloud_storage___default.a.User.current(),true) // 只有这个 user 能读
           acl.setWriteAccess(__WEBPACK_IMPORTED_MODULE_1_leancloud_storage___default.a.User.current(),true) // 只有这个 user 能写
 
-          
-          avTodos.setACL(acl) //设置访问控制
           avTodos.set('content', dataString);
+          avTodos.setACL(acl) //设置访问控制
           avTodos.save().then((todo) => {
             this.todoList.id = todo.id  // 一定要记得把 id 挂到 this.todoList 上，否则下次就不会调用 updateTodos 了
             console.log('保存成功');
