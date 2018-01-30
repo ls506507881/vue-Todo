@@ -10,7 +10,8 @@
     }
     body{
         /* background: url(./img/bg.png) repeat; */
-        background: #FAFAF8;
+        /* background: #FAFAF8; */
+        background: #F4F5F5;
     }
     #signInAndSignUp{
         width: 100%;
@@ -144,7 +145,6 @@
         line-height: 30px;
         margin-top: 30px;
         display: inline-block;
-        cursor: pointer;
     }
     #signInAndSignUp .bg{
         position: absolute;
@@ -162,22 +162,78 @@
     }
     section#todo > .topbar{
         width: 100%;
-        height: 60px;
+        display: flex;
+        justify-content: space-between;
+        padding:10px 30px;
         background: #fff;
-        box-shadow: 2px 5px 40px -2px rgba(0,0,0,0.24);
+        box-shadow: 2px 5px 10px -2px rgba(0,0,0,0.15);
+        margin-bottom: 20px;
+        
+    }
+    section#todo > .topbar > .logo{
+        flex: 1;
+        line-height: 50px;
+        font-size: 30px;
+        font-weight: 500;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    }
+    section#todo > .topbar > .user{
+    }
+    section#todo > .topbar > .user > .logoutUserButton{
+        background: #3F9EFF;
+        border: 1px solid #3F9EFF;
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 3px;
+        margin-left: 15px;
+        line-height: 50px;
+        opacity: .8;
+    }
+    section#todo > .topbar > .user > .logoutUserButton:hover{
+        opacity: 1;
+    }
+    section#todo > .todoContent .newTask{
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 20px 30px;
+    }
+    section#todo > .todoContent .todos{
 
     }
-    section#todo > .todos{
-    }
-    section#todo > .todos > li{
+    section#todo > .todoContent .todos > li{
         float: left;
         margin-left: 15px;
-        width: 150px;
         background: #fff;
         box-shadow: 2px 5px 26px -2px rgba(0,0,0,0.24);
         border-radius: 4px;
         padding: 15px;
+        width: 18.5%;
+        margin-top: 20px;
     }
+    .todos > li > .time{
+        border-bottom: 1px solid #efefef;
+        line-height: 30px;
+    }
+    .todos > li > .content{
+        padding: 10px 0;
+        border-bottom: 1px solid #efefef;
+    }
+    .todos > li > .state{}
+    .todos > li > .state .todoTrue{
+        color: #3F9EFF;
+    }
+    .todos > li > .state .todoFalse{
+        color: rgb(211, 0, 0);
+    }
+    .newTask{
+        background: #fff;
+        padding: 10px 20px;
+    }
+    .newTask > input{
+        width: 100%;
+    }
+    /* #3F9EFF */
     </style>
 </head>
 
@@ -233,19 +289,33 @@
 
         <section id="todo" v-if="currentUser">
             <div class="topbar">
-                <p>欢迎您，用户 - {{currentUser.username}}</p>
-                <p><button @click="logout">登出</button></p>
+                <div class="logo">
+                    QuickTodos
+                </div>
+                <div class="user">
+                    欢迎您，用户 {{currentUser.username}} 大帅比<a class="logoutUserButton" @click="logout">登出当前账号</a>
+                </div>
+
             </div>
             <div class="todoContent">
                 <div class="newTask">
-                    <input type="text" v-model="newTodo" @keypress.enter="addTodo">
+                    <label>
+                        <input type="text" v-model="newTodo" @keyup.enter="addTodo" placeholder="请输入代办事项"></label>
+                    <button @click="addTodo">添加</button>
                 </div>
                 <ol class="todos">
                     <li v-for="todo in todoList">
-                        <input type="checkbox" v-model="todo.done"> {{ todo.title }} - {{ todo.createdAt}}
-                        <span v-if="todo.done">已完成</span>
-                        <span v-else>未完成</span>
-                        <button @click="removeTodo(todo)">X</button>
+                        <div class="time">
+                            {{ todo.createdAt}}<a @click="removeTodo(todo)">X</a>
+                        </div>
+                        <div class="content">
+                            {{ todo.title }}
+                        </div>
+                         <div class="state">
+                            <!-- <input type="checkbox" id="checkbox-1" v-model="todo.done" /><label for="checkbox-1">123</label><span class="todoTrue" v-if="todo.done">已完成</span><span class="todoFalse" v-else>未完成</span></label> -->
+                            <!-- <input type="checkbox" name="radio-1-1" class="regular-radio" v-model="todo.done"  checked=""><label for="radio-1-1"></label><span class="todoTrue" v-if="todo.done">已完成</span><span class="todoFalse" v-else>未完成</span> -->
+                            <label><input type="checkbox" v-model="todo.done" ><span class="todoTrue" v-if="todo.done">已完成</span><span class="todoFalse" v-else>未完成</span></label>
+                        </div>
                     </li>
                 </ol>
             </div>
