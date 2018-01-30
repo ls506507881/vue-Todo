@@ -18,6 +18,16 @@
   },
   "homepage": "https://github.com/ls506507881/vue-Todo#readme",
   "dependencies": {
-    "leancloud-storage": "^3.5.0"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "leancloud-storage": "^3.5.0",
+    "vue": "^2.5.13",
+    "vue-waterfall": "^1.0.6",
+    "webpack": "^3.10.0"
+  },
+  "devDependencies": {
+    "vue-waterfall-easy": "^1.0.8"
   }
 }

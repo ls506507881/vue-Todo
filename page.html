@@ -170,6 +170,9 @@
         margin-bottom: 20px;
         
     }
+    section#todo > .topbar svg{
+        margin-right: 8px;
+    }
     section#todo > .topbar > .logo{
         flex: 1;
         line-height: 50px;
@@ -196,43 +199,81 @@
         position: fixed;
         bottom: 0;
         width: 100%;
-        padding: 20px 30px;
+        padding: 15px 20px;
+        background: #fff;
+        display: flex;
+        box-shadow: 2px -2px 10px -2px rgba(0,0,0,0.15);
     }
-    section#todo > .todoContent .todos{
+    section#todo > .todoContent .newTask > button{
+        min-width: 120px;
+        margin-left: 10px;
+        background: #3F9EFF;
+        border: 1px solid #3F9EFF;
+        color: #fff;
+        border-radius: 3px;
+        cursor: pointer;
+        opacity: .9;
+    }
+    section#todo > .todoContent .newTask > button:hover{
+        opacity: 1;
+    }
+    section#todo > .todoContent .newTask > input{
+        flex: 1;
+        outline: none;
+        line-height: 35px;
+        border: .5px solid #D9D9D9;
+        border-radius: 3px;
+        padding-left: 15px;
+    }
 
+    section#todo > .todoContent .todos{
+        display: flex;
+        flex-wrap: wrap;
+        padding-bottom: 100px;
     }
     section#todo > .todoContent .todos > li{
-        float: left;
         margin-left: 15px;
         background: #fff;
         box-shadow: 2px 5px 26px -2px rgba(0,0,0,0.24);
         border-radius: 4px;
-        padding: 15px;
+        padding: 0 15px;
         width: 18.5%;
         margin-top: 20px;
+        display: flex;
+        flex-direction: column;
     }
     .todos > li > .time{
-        border-bottom: 1px solid #efefef;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: .5px solid #efefef;
         line-height: 30px;
+        padding: 8px 0;
+        
+    }
+    .todos > li > .time span{
+        color: #969696;
+        
+    }
+    .todos > li > .time svg{
+        width: 12px;
+        height: 12px;
+        color: #D9D9D9;
     }
     .todos > li > .content{
-        padding: 10px 0;
-        border-bottom: 1px solid #efefef;
+        padding: 15px 0;
+        flex: 1;
+        border-bottom: .5px solid #efefef;
     }
-    .todos > li > .state{}
+    .todos > li > .state{
+        padding: 15px 0;
+    }
     .todos > li > .state .todoTrue{
         color: #3F9EFF;
     }
     .todos > li > .state .todoFalse{
         color: rgb(211, 0, 0);
     }
-    .newTask{
-        background: #fff;
-        padding: 10px 20px;
-    }
-    .newTask > input{
-        width: 100%;
-    }
+
     /* #3F9EFF */
     </style>
 </head>
@@ -290,28 +331,28 @@
         <section id="todo" v-if="currentUser">
             <div class="topbar">
                 <div class="logo">
-                    QuickTodos
+                    <svg class="icon" aria-hidden="true"><use xlink:href="#icon-logo"></use></svg>QuickTodos
                 </div>
                 <div class="user">
-                    欢迎您，用户 {{currentUser.username}} 大帅比<a class="logoutUserButton" @click="logout">登出当前账号</a>
+                    <svg class="icon" aria-hidden="true"><use xlink:href="#icon-user"></use></svg>欢迎您，用户<strong>{{currentUser.username}}</strong><a class="logoutUserButton" @click="logout">登出当前账号</a>
                 </div>
 
             </div>
             <div class="todoContent">
                 <div class="newTask">
-                    <label>
-                        <input type="text" v-model="newTodo" @keyup.enter="addTodo" placeholder="请输入代办事项"></label>
+                    <input type="text" v-model="newTodo" @keyup.enter="addTodo" placeholder="请输入代办事项">
                     <button @click="addTodo">添加</button>
                 </div>
                 <ol class="todos">
                     <li v-for="todo in todoList">
                         <div class="time">
-                            {{ todo.createdAt}}<a @click="removeTodo(todo)">X</a>
+                            <span>{{ todo.createdAt}}</span>
+                            <a @click="removeTodo(todo)"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-close"></use></svg></a>
                         </div>
                         <div class="content">
                             {{ todo.title }}
                         </div>
-                         <div class="state">
+                            <div class="state">
                             <!-- <input type="checkbox" id="checkbox-1" v-model="todo.done" /><label for="checkbox-1">123</label><span class="todoTrue" v-if="todo.done">已完成</span><span class="todoFalse" v-else>未完成</span></label> -->
                             <!-- <input type="checkbox" name="radio-1-1" class="regular-radio" v-model="todo.done"  checked=""><label for="radio-1-1"></label><span class="todoTrue" v-if="todo.done">已完成</span><span class="todoFalse" v-else>未完成</span> -->
                             <label><input type="checkbox" v-model="todo.done" ><span class="todoTrue" v-if="todo.done">已完成</span><span class="todoFalse" v-else>未完成</span></label>
@@ -322,6 +363,6 @@
         </section>
     </div>
     <script src="bundle.js"></script>
+    <script src="//at.alicdn.com/t/font_559374_7r8irehls1m26gvi.js"></script>
 </body>
-
 </html>

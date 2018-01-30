@@ -8,7 +8,6 @@ AV.init({
   appId: APP_ID,
   appKey: APP_KEY
 });
-
 var app = new Vue({
     el: '#app',
     data: {

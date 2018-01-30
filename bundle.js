@@ -299,7 +299,6 @@ __WEBPACK_IMPORTED_MODULE_1_leancloud_storage___default.a.init({
   appId: APP_ID,
   appKey: APP_KEY
 });
-
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
     el: '#app',
     data: {
