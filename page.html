@@ -60,7 +60,7 @@
         font-size: 16px;
     }
     .formActions{
-        margin-top: 20px;
+        margin-top: 40px;
         text-align: right;
     }
     .formActions input[type=submit]{
@@ -183,17 +183,16 @@
     section#todo > .topbar > .user{
     }
     section#todo > .topbar > .user > .logoutUserButton{
-        background: #3F9EFF;
-        border: 1px solid #3F9EFF;
+        background: #909399;
+        border: 1px solid #909399;
         color: #fff;
-        padding: 6px 10px;
-        border-radius: 3px;
+        padding: 5px 10px;
+        border-radius: 30px;
         margin-left: 15px;
         line-height: 50px;
-        opacity: .8;
     }
     section#todo > .topbar > .user > .logoutUserButton:hover{
-        opacity: 1;
+        opacity: .9;
     }
     section#todo > .todoContent .newTask{
         position: fixed;
@@ -207,15 +206,14 @@
     section#todo > .todoContent .newTask > button{
         min-width: 120px;
         margin-left: 10px;
-        background: #3F9EFF;
-        border: 1px solid #3F9EFF;
+        background: #409EFF;
+        border: 1px solid #409EFF;
         color: #fff;
         border-radius: 3px;
         cursor: pointer;
-        opacity: .9;
     }
     section#todo > .todoContent .newTask > button:hover{
-        opacity: 1;
+        opacity: .9;
     }
     section#todo > .todoContent .newTask > input{
         flex: 1;
@@ -228,16 +226,18 @@
 
     section#todo > .todoContent .todos{
         display: flex;
+        /* justify-content: space-around; */
         flex-wrap: wrap;
         padding-bottom: 100px;
+        /* padding: 0 20px 100px 20px; */
     }
     section#todo > .todoContent .todos > li{
-        margin-left: 15px;
         background: #fff;
         box-shadow: 2px 5px 26px -2px rgba(0,0,0,0.24);
         border-radius: 4px;
         padding: 0 15px;
-        width: 18.5%;
+        margin-left: 21px;
+        width: 18%;
         margin-top: 20px;
         display: flex;
         flex-direction: column;
@@ -261,17 +261,26 @@
     }
     .todos > li > .content{
         padding: 15px 0;
+        word-break: break-all;
         flex: 1;
         border-bottom: .5px solid #efefef;
     }
     .todos > li > .state{
-        padding: 15px 0;
+        padding: 12px 0;
+    }
+    .todos > li > .state input{
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    .todos > li > .state span{
+        vertical-align: middle;
+        font-weight: 500;
     }
     .todos > li > .state .todoTrue{
-        color: #3F9EFF;
+        color: #409EFF;
     }
     .todos > li > .state .todoFalse{
-        color: rgb(211, 0, 0);
+        color: #F56C6C;
     }
 
     /* #3F9EFF */
